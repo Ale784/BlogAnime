@@ -1,1 +1,6 @@
-GET https://localhost:7118/PostList
+// https://localhost:7118/swagger/index.html
+
+//GET https://localhost:7118/PostList
+
+
+GET https://localhost:7118/PostList/id

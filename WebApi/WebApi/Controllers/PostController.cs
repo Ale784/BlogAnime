@@ -1,5 +1,6 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
+using WebApi.DTO;
 using WebApi.Models;
 using WebApi.Repository;
 
@@ -10,18 +11,32 @@ namespace WebApi.Controller
     [Route("PostList")]
     public class PostController:ControllerBase 
     {
-        private readonly PostInMemory _postMemory;
+        private readonly IBlogRepository _blogRepository;
 
-        public PostController()
+        public PostController(IBlogRepository repository)
         {
-            _postMemory = new PostInMemory();
+            _blogRepository = repository;
         }
 
         [HttpGet]
-        public IEnumerable<Post> GetPostList()
+        public IEnumerable<PostDTO> GetPostList()
         {
-            var posts = _postMemory.GetPostList();
-            return posts;
+
+            var post = _blogRepository.GetPostList().Select(post => post.ASPostDTO());
+
+            return post;
+        }
+
+        [HttpGet("{Id}")]
+        public ActionResult<PostDTO> GetPostById(Guid Id)
+        {
+            var post = _blogRepository.GetPostById(Id);
+
+            if(post is null){
+                return NotFound();
+            }
+
+            return post.ASPostDTO();
         }
 
     }

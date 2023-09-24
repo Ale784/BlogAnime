@@ -1,9 +1,7 @@
 using System;
 
-
-namespace WebApi.Models{
-
-    public class Post{
+namespace WebApi.DTO{
+        public record PostDTO{
 
         public Guid PostId { get; init; }
         public string? Title { get; init; }
@@ -12,9 +10,5 @@ namespace WebApi.Models{
         public DateTimeOffset UpdatedTime { get; init; }
         public string? AuthorName { get; init; }
 
-
-
     }
-
-
 }
